@@ -1,12 +1,3 @@
-<h1 align="center"> Tavaheed tariq </h1>
-<h3 align="center"> 2022BITE008</h3>
-<h4 align="center">Adding a system call to linux kernel and testing it using a C program</h4>
-
-# system call
-
-A ***system call*** is a programmatic way in which a computer program requests a service from the kernel of the operating system it is executed on. A system call is a way for programs to ***interact with the operating system***.
-
-
 # Adding a system call to Linux kernel
 
 ## Installation
@@ -311,4 +302,69 @@ At the bottom, you should now see the following.
 
 ![image](https://github.com/Tawheed-tariq/linux-kernel/assets/143424182/cc85253a-8742-4896-9f2b-9694c2cafc85)
 
+# user programs for other system calls
 
+## 1.get_free_memory
+```c
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/syscall.h>
+#include <errno.h>
+
+#define SYS_GET_FREE_MEMORY 464
+int main() {
+    long free_memory;
+    free_memory = syscall(SYS_GET_FREE_MEMORY);
+
+    if (free_memory == -1) {
+        perror("syscall");
+        return errno;
+    }
+    // Print the amount of free memory
+    printf("Free memory: %ld kB\n", free_memory);
+
+    return 0;
+}
+```
+## 2.get_process_count
+
+```c
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/syscall.h>
+#include <errno.h>
+
+#define SYS_GET_PROCESS_COUNT 465
+int main() {
+    long process_count;
+    process_count = syscall(SYS_GET_PROCESS_COUNT);
+    if (process_count == -1) {
+        perror("syscall");
+        return errno;
+    }
+    // Print the process count
+    printf("Number of processes: %ld\n", process_count);
+    return 0;
+}
+```
+
+## 3.get_uptime
+
+```c
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/syscall.h>
+#include <errno.h>
+
+#define SYS_GET_UPTIME 463
+int main() {
+    long uptime_seconds;
+    uptime_seconds = syscall(SYS_GET_UPTIME);
+    if (uptime_seconds == -1) {
+        perror("syscall");
+        return errno;
+    }
+    printf("System uptime: %ld seconds\n", uptime_seconds);
+    return 0;
+}
+```
