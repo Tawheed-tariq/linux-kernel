@@ -467,3 +467,6 @@
 460	i386	lsm_set_self_attr	sys_lsm_set_self_attr
 461	i386	lsm_list_modules	sys_lsm_list_modules
 462 i386    cs12                sys_cs12
+463 i386    get_uptime          sys_get_uptime
+464 i386    get_free_memory     sys_get_free_memory
+465 i386    get_process_count   sys_get_process_count

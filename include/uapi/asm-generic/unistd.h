@@ -843,8 +843,17 @@ __SYSCALL(__NR_lsm_set_self_attr, sys_lsm_set_self_attr)
 __SYSCALL(__NR_lsm_list_modules, sys_lsm_list_modules)
 #define __NR_cs12 462
 __SYSCALL(__NR_cs12, sys_cs12)
+
+#define __NR_get_uptime 463
+__SYSCALL(__NR_get_uptime, sys_get_uptime)
+
+#define __NR_get_free_memory 464
+__SYSCALL(__NR_get_free_memory, sys_get_free_memory)
+
+#define __NR_get_process_count 465
+__SYSCALL(__NR_get_process_count, sys_get_process_count)
 #undef __NR_syscalls
-#define __NR_syscalls 463
+#define __NR_syscalls 466
 
 
 /*

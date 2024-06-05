@@ -392,3 +392,6 @@ COND_SYSCALL(setuid16);
 /* restartable sequence */
 COND_SYSCALL(rseq);
 COND_SYSCALL(cs12);
+COND_SYSCALL(get_uptime);
+COND_SYSCALL(get_free_memory);
+COND_SYSCALL(get_process_count);

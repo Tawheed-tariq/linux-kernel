@@ -1,0 +1,1 @@
+obj-y := get_uptime.o
