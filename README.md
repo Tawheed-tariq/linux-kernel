@@ -54,7 +54,8 @@ in my case it was: `cd linux`
 Now after you have installed necessary packages and linux kernel, we will start adding a basic system call to linux kernel.
 you are now currently in linux directory which you just downloaded, you can check its content by listing `ls` the files inside it:
 
-![[Pasted image 20240325170423.png]]
+![image](https://github.com/Tawheed-tariq/linux-kernel/assets/143424182/80f67a74-52a8-4316-b00e-4c95d362f68b)
+
 
 1. Change your directory to kernel
    
@@ -112,7 +113,8 @@ code Makefile
 ```
 
 inside Makefile of kernel directory , and find `obj-y`, you will find something like this:
-![[Pasted image 20240325173616.png]]
+![image](https://github.com/Tawheed-tariq/linux-kernel/assets/143424182/6464c598-9434-41ec-a955-5682cdedb863)
+
 
 write this line of code anywhere you want:
 ```c
@@ -148,7 +150,8 @@ __SYSCALL(__NR_cs12, sys_cs12)
 
 Also update the `__NR_syscalls` count to reflect the additional system call, and note that if multiple new system calls are added in the same merge window, your new syscall number may get adjusted to resolve conflicts.
 
-![[Pasted image 20240325141653.png]]
+![image](https://github.com/Tawheed-tariq/linux-kernel/assets/143424182/d4de83b7-4ade-44f3-a025-9c139c5d5628)
+
 
 The file `kernel/sys_ni.c` provides a fallback stub implementation of each system call, returning `-ENOSYS`. Add your new system call here too:
 
@@ -160,7 +163,8 @@ code kernel/sys_ni.c
 COND_SYSCALL(cs12);
 ```
 
-![[2024-03-23_15-04.png]]
+![image](https://github.com/Tawheed-tariq/linux-kernel/assets/143424182/cfcc009e-3ba9-42bc-a4dd-28fb56dfd728)
+
 
 To wire up your new system call for x86 platforms, you need to update the master syscall tables. Assuming your new system call isn't special in some way (see below), this involves a "common" entry (for x86_64 and x32) in `arch/x86/entry/syscalls/syscall_64.tbl`:
 
@@ -172,7 +176,8 @@ code arch/x86/entry/syscalls/syscall_64.tbl
 462   common   cs12     sys_cs12
 ```
 
-![[2024-03-23_14-34.png]]
+![image](https://github.com/Tawheed-tariq/linux-kernel/assets/143424182/cd79bf85-2714-4aac-95d2-691d0443c5b7)
+
 
 and an "i386" entry in `arch/x86/entry/syscalls/syscall_32.tbl`:
 
@@ -184,7 +189,8 @@ code arch/x86/entry/syscalls/syscall_32.tbl
 462   i386   cs12     sys_cs12
 ```
 
-![[2024-03-23_15-10 1.png]]
+![image](https://github.com/Tawheed-tariq/linux-kernel/assets/143424182/375ecceb-7de2-4455-b3d4-b7493a73662d)
+
 
 Again, these numbers are liable to be changed if there are conflicts in the relevant merge window.
 
@@ -303,5 +309,6 @@ gcc -o report report.c
 check the last line of output.
 At the bottom, you should now see the following.
 
-![[Pasted image 20240325163928.png]]
+![image](https://github.com/Tawheed-tariq/linux-kernel/assets/143424182/cc85253a-8742-4896-9f2b-9694c2cafc85)
+
 
